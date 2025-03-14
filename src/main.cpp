@@ -3,6 +3,17 @@
 #include "player.h"
 #include "monster.h"
 
+/*TODO
+-items class
+	-potions
+	-weapons
+	-armors
+-dungeon class
+	- array of random enemies + boss
+-Creature::Boss class
+-server 0.0
+*/
+
 
 int main()
 {
