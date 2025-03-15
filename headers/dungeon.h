@@ -14,7 +14,9 @@ private:
 public:
     Dungeon(Dungeon&) = delete;
 
+    Monster* getMonsters() {return m_monsters;}
     int getLevel() {return m_level;}
+    int getSize() {return m_size;}
     int getNumber() {return m_number;}
 
     static Dungeon generateDungoen(int, int);
