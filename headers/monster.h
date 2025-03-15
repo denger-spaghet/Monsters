@@ -19,6 +19,7 @@ private:
         Creature { "slime", 's', 1, 1, 10 },
     };
 public:
+    Monster();
     Monster(Type);
     static Monster getRandomMonster();
 };

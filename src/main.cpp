@@ -2,6 +2,7 @@
 #include <string>
 #include "player.h"
 #include "monster.h"
+#include "dungeon.h"
 
 /*TODO
 -items class
