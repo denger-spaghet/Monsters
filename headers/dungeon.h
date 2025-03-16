@@ -12,7 +12,7 @@ private:
     inline static int m_order {0};
     Dungeon(Monster*, int, int);
 public:
-    Dungeon(Dungeon&) = delete;
+    Dungeon(const Dungeon&) = delete;
 
     Monster* getMonsters() {return m_monsters;}
     int getLevel() {return m_level;}

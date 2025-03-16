@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cctype>
+
 #include "player.h"
 #include "monster.h"
 #include "dungeon.h"
@@ -13,6 +15,23 @@
 -Creature::Boss class
 -server 0.0
 */
+
+//if true option a selected
+char twoChoices(char a, char b, std::string_view message) {
+	bool boolA { false };
+	bool boolB { false };
+	char choice {};
+
+	do {
+		std::cout << message << " ";
+		std::cin >> choice;
+		boolA = (choice == a || choice == std::toupper(a));
+		boolB = (choice == b || choice == std::toupper(b));
+	} while(!boolA && !boolB);
+
+	return (boolA ? a : b);
+}
+
 void bigDivider() {
 	std::cout << "========================\n";
 }
@@ -49,14 +68,10 @@ void fightMonster(Player& p, Monster& m) {
 	
 	do{
 		std::cout << "You have " << p.getHealth() << " health.\n";
-		do {
-			std::cout << "(R)un or (F)ight: ";
-			std::cin >> userInput;
-			run = (userInput == 'r' || userInput == 'R');
-			fight = (userInput == 'f' || userInput == 'F');
-		} while(!run && !fight);
 
-		if(run) {
+		char runFight { twoChoices('r', 'f', "(R)un or (F)ight:") };
+
+		if(runFight == 'r') {
 			int roll { Random::get(1, 100) };
 			if(roll > 50) {
 				std::cout << "You successfully fled.\n";
@@ -76,6 +91,35 @@ void fightMonster(Player& p, Monster& m) {
 	smallDivider();
 }
 
+void runDungeon(Player& p, int& level) {
+	char doorChoice { ' ' };
+	if(level == 0) {
+		doorChoice = 'l';
+	} else {
+		std::cout << "There are two doors in front of you.\n";
+		std::cout << "The left one leads deeper into the dungeon.\n";
+		std::cout << "The right one continues on the same level.\n";
+
+		doorChoice = twoChoices('l', 'r', "Go (L)eft or (R)ight?");
+	}
+	smallDivider();
+	if(doorChoice == 'l') ++level;
+	Dungeon d { Dungeon::generateDungoen(level, 2) };
+	std::cout << d;
+	Monster *monsters { d.getMonsters() };
+
+	for(int i {0}; i < d.getSize(); i++) {
+		if(p.isDead() || p.hasWon()) {
+			doorChoice = ' ';
+			return;
+		}
+		fightMonster(p, monsters[i]);
+	}
+	std::cout << "You survived, for now.\n";
+	std::cout << "You have " << p.getHealth() << " health and are carrying " << p.getGold() << " gold.\n";
+	bigDivider();
+	doorChoice = ' ';
+}
 
 int main()
 {
@@ -86,54 +130,19 @@ int main()
 	Player p { playerName };
 	int level { 0 };
 	char enterDungeon {};
-	char leftRight {};
-	bool yes { false };
-	bool no { false };
-	bool left { false };
-	bool right { false };
 
 	std::cout << "Welcome, " << p.getName() << ".\n";
 	std::cout << "There is a door into a dungeon in front of you.\n";
 
-	do {
-		std::cout << "Do you want to enter? (y/n): ";
-		std::cin >> enterDungeon;
-		yes = (enterDungeon == 'y' || enterDungeon == 'Y');
-		no = (enterDungeon == 'n' || enterDungeon == 'N');
-		if(no) std::cout << "You cannot turn back.\n";
-	} while (!yes);
+	char startGame { twoChoices('y', 'n', "Do you want to enter? (y/n):") };
+	while(startGame == 'n') {
+		std::cout << "You cannot turn back.\n";
+		startGame = twoChoices('y', 'n', "Do you want to enter? (y/n):");
+	}
+
 	bigDivider();
 	do {
-		if(level == 0) {
-			left = true;
-		} else {
-			std::cout << "There are two doors in front of you.\n";
-			std::cout << "The left one leads deeper into the dungeon.\n";
-			std::cout << "The right one stays on the same level.\n";
-			do {
-				std::cout << "Go (L)eft or (R)ight? ";
-				std::cin >> enterDungeon;
-				left = (enterDungeon == 'l' || enterDungeon == 'L');
-				right = (enterDungeon == 'r' || enterDungeon == 'R');
-			} while (!left && !right);
-		}
-		smallDivider();
-		if(left) ++level;
-		Dungeon d { Dungeon::generateDungoen(level, 2) };
-		std::cout << d;
-		Monster *monsters { d.getMonsters() };
-
-		for(int i {0}; i < d.getSize(); i++) {
-			if(p.isDead() || p.hasWon()) {
-				break;
-			}
-			fightMonster(p, monsters[i]);
-		}
-		std::cout << "You survived, for now.\n";
-		std::cout << "You have " << p.getHealth() << " health and are carrying " << p.getGold() << " gold.\n";
-		bigDivider();
-		right = false;
-		left = false;
+		runDungeon(p, level);
 
 	} while(!p.isDead() && !p.hasWon());
 	
