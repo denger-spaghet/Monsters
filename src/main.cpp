@@ -129,7 +129,6 @@ int main()
 
 	Player p { playerName };
 	int level { 0 };
-	char enterDungeon {};
 
 	std::cout << "Welcome, " << p.getName() << ".\n";
 	std::cout << "There is a door into a dungeon in front of you.\n";
