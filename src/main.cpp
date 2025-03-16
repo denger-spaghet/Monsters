@@ -5,12 +5,11 @@
 #include "dungeon.h"
 
 /*TODO
+-polish day 
 -items class
 	-potions
 	-weapons
 	-armors
--dungeon class
-	- array of random enemies + boss
 -Creature::Boss class
 -server 0.0
 */
@@ -40,8 +39,7 @@ void attackMonster(Player& p, Monster& m) {
 	}
 }
 
-void fightMonster(Player& p) {
-	Monster m { Monster::getRandomMonster() };
+void fightMonster(Player& p, Monster& m) {
 	char userInput {};
 	bool run { false };
 	bool fight { false };
@@ -50,6 +48,7 @@ void fightMonster(Player& p) {
 	
 	
 	do{
+		std::cout << "You have " << p.getHealth() << " health.\n";
 		do {
 			std::cout << "(R)un or (F)ight: ";
 			std::cin >> userInput;
@@ -85,20 +84,66 @@ int main()
 	std::cin >> playerName;
 
 	Player p { playerName };
+	int level { 0 };
+	char enterDungeon {};
+	char leftRight {};
+	bool yes { false };
+	bool no { false };
+	bool left { false };
+	bool right { false };
 
 	std::cout << "Welcome, " << p.getName() << ".\n";
-	std::cout << "You have " << p.getHealth() << " health and are carrying " << p.getGold() << " gold.\n";
-	bigDivider();
+	std::cout << "There is a door into a dungeon in front of you.\n";
 
 	do {
-		fightMonster(p);
+		std::cout << "Do you want to enter? (y/n): ";
+		std::cin >> enterDungeon;
+		yes = (enterDungeon == 'y' || enterDungeon == 'Y');
+		no = (enterDungeon == 'n' || enterDungeon == 'N');
+		if(no) std::cout << "You cannot turn back.\n";
+	} while (!yes);
+	bigDivider();
+	do {
+		if(level == 0) {
+			left = true;
+		} else {
+			std::cout << "There are two doors in front of you.\n";
+			std::cout << "The left one leads deeper into the dungeon.\n";
+			std::cout << "The right one stays on the same level.\n";
+			do {
+				std::cout << "Go (L)eft or (R)ight? ";
+				std::cin >> enterDungeon;
+				left = (enterDungeon == 'l' || enterDungeon == 'L');
+				right = (enterDungeon == 'r' || enterDungeon == 'R');
+			} while (!left && !right);
+		}
+		smallDivider();
+		if(left) ++level;
+		Dungeon d { Dungeon::generateDungoen(level, 2) };
+		std::cout << d;
+		Monster *monsters { d.getMonsters() };
+
+		for(int i {0}; i < d.getSize(); i++) {
+			if(p.isDead() || p.hasWon()) {
+				break;
+			}
+			fightMonster(p, monsters[i]);
+		}
+		std::cout << "You survived, for now.\n";
+		std::cout << "You have " << p.getHealth() << " health and are carrying " << p.getGold() << " gold.\n";
+		bigDivider();
+		right = false;
+		left = false;
+
 	} while(!p.isDead() && !p.hasWon());
+	
+
 
 	if(p.isDead()) {
 		std::cout << "You died at level " << p.getLevel() << " and with " << p.getGold() << " gold.\n";
 		std::cout << "Too bad you can’t take it with you!\n";
 	} else {
-		std::cout << "Congratulations, you won and took " << p.getGold() << "\n";
+		std::cout << "Congratulations, you won and took " << p.getGold() << " gold.\n";
 	}
 
 	return 0;
