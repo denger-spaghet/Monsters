@@ -86,9 +86,9 @@ void fightMonster(Player& p, Monster& m) {
 				attackPlayer(p, m);
 			}
 		}
-
+		smallDivider();
 	} while(!p.isDead() && !m.isDead());
-	smallDivider();
+	bigDivider();
 }
 
 void runDungeon(Player& p, int& level) {
