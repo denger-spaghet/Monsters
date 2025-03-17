@@ -22,7 +22,8 @@ void Player::levelUp() {
     addFullHealth();
 
     m_xp -= m_levelThreshold;
-    m_levelThreshold = m_level * 10; 
+    m_levelThreshold = m_level * 10;
+    std::cout << "You are now level " << m_level << ".\n";	 
 }
 
 std::ostream& operator<<(std::ostream& os, const Player& obj) {
