@@ -12,6 +12,7 @@ Dungeon Dungeon::generateDungoen(int level, int size) {
     Monster *monsters = new Monster[size];
     for(int i {0}; i < size; i++) {
         monsters[i] = Monster::getRandomMonster();
+        monsters[i].scaleMonster(level);
     }
     return Dungeon { monsters, size, level };
 }

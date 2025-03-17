@@ -22,6 +22,7 @@ public:
     Monster();
     Monster(Type);
     static Monster getRandomMonster();
+    void scaleMonster(int);
 };
 
 #endif
