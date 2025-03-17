@@ -65,10 +65,11 @@ void attackMonster(Player& p, Monster& m) {
 	std::cout << "You hit the " << m.getName() << " for " << p.getDamage() << " damage.\n";
 	if(m.isDead()) {
 		p.addGold(m.getGold());
-		p.addXp(m.getXp());
 
 		std::cout << "You killed the " << m.getName() << ".\n";
 		std::cout << "You found " << m.getGold() << " gold.\n";	
+	
+		p.addXp(m.getXp());
 	}
 }
 
