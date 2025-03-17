@@ -1,7 +1,7 @@
 #include "monster.h"
 
 Monster::Monster():
-    Creature { "none", '0', 0, 0, 0 } {}
+    Creature { "none", '0', 0, 0, 0, 0 } {}
 
 Monster::Monster(Type t):
     Creature { monsterData[t] } {}

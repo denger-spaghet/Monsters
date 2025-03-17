@@ -7,7 +7,6 @@
 #include "dungeon.h"
 
 /*TODO
-- heal after dungeon
 - implement xp mechanic for player leveling and rethink player levels (inc health instead of dmg)
 - cheats
 	- user input reads string

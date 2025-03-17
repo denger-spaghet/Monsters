@@ -11,8 +11,9 @@ class Creature {
         int m_maxHealth;
         int m_damage;
         int m_gold;
+        int m_xp;
     public:
-        Creature(std::string_view, char, int, int, int);
+        Creature(std::string_view, char, int, int, int, int);
     
         std::string getName() const {return m_name;}
         char getSymbol() const {return m_symbol;}
@@ -20,6 +21,7 @@ class Creature {
         int getMaxHealth() const {return m_maxHealth;}
         int getDamage() const {return m_damage;}
         int getGold() const {return m_gold;}
+        int getXp() const {return m_xp;}
     
         void addFullHealth() {m_health = m_maxHealth;}
         void addHealth(int n) {((m_health + n) < m_maxHealth) ? m_health += n : m_health = m_maxHealth;}
