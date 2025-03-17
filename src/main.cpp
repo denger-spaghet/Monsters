@@ -7,13 +7,24 @@
 #include "dungeon.h"
 
 /*TODO
--polish day 
--items class
-	-potions
+- get rid of the damn dragon (for now)
+- implement monster scaling according to dungeon level
+- implement dungeon size scaling
+- heal after dungeon
+- implement xp mechanic for player leveling and rethink player levels (inc health instead of dmg)
+- add items class
+	-potions??????
 	-weapons
 	-armors
--Creature::Boss class
--server 0.0
+- implement Creature::Boss class (dragon)
+- implement shop
+===============
+- REFACTOR
+===============
+- spawn different mosnter types according to dungeon level
+- refine combat
+- save game
+- server 0.0
 */
 
 //if true option a selected
@@ -109,11 +120,12 @@ void runDungeon(Player& p, int& level) {
 	Monster *monsters { d.getMonsters() };
 
 	for(int i {0}; i < d.getSize(); i++) {
+		fightMonster(p, monsters[i]);
 		if(p.isDead() || p.hasWon()) {
 			doorChoice = ' ';
 			return;
 		}
-		fightMonster(p, monsters[i]);
+		
 	}
 	std::cout << "You survived, for now.\n";
 	std::cout << "You have " << p.getHealth() << " health and are carrying " << p.getGold() << " gold.\n";
