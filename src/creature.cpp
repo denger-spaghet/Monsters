@@ -1,8 +1,9 @@
 #include "creature.h"
 
-Creature::Creature(std::string_view name, char symbol, int health, int damage, int gold):
+Creature::Creature(std::string_view name, char symbol, int maxHealth, int damage, int gold):
     m_name { name },
     m_symbol { symbol },
-    m_health { health },
+    m_health { maxHealth },
+    m_maxHealth { maxHealth },
     m_damage { damage },
     m_gold { gold } {}

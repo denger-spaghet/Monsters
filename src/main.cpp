@@ -9,6 +9,10 @@
 /*TODO
 - heal after dungeon
 - implement xp mechanic for player leveling and rethink player levels (inc health instead of dmg)
+- cheats
+	- user input reads string
+	- add health
+	- add xp
 - add items class
 	-potions??????
 	-weapons
@@ -17,6 +21,7 @@
 - implement shop
 ===============
 - REFACTOR
+	- global defaults
 ===============
 - spawn different mosnter types according to dungeon level
 - refine combat
@@ -155,6 +160,7 @@ int main()
 	bigDivider();
 	do {
 		runDungeon(p, level);
+		p.addFullHealth();
 
 	} while(!p.isDead());
 	
