@@ -11,16 +11,16 @@
 	- user input reads string
 	- add health
 	- add xp
+===============
+- REFACTOR
+	- global defaults
+===============
 - add items class
 	-potions??????
 	-weapons
 	-armors
 - implement Creature::Boss class (dragon)
 - implement shop
-===============
-- REFACTOR
-	- global defaults
-===============
 - spawn different mosnter types according to dungeon level
 - refine combat
 - save game
