@@ -7,8 +7,6 @@
 #include "dungeon.h"
 
 /*TODO
-- implement monster scaling according to dungeon level
-- implement dungeon size scaling
 - heal after dungeon
 - implement xp mechanic for player leveling and rethink player levels (inc health instead of dmg)
 - add items class
@@ -118,13 +116,13 @@ void runDungeon(Player& p, int& level) {
 	}
 	smallDivider();
 	if(doorChoice == 'l') ++level;
-	Dungeon d { Dungeon::generateDungoen(level, 2) };
+	Dungeon d { Dungeon::generateDungoen(level) };
 	std::cout << d;
 	Monster *monsters { d.getMonsters() };
 
 	for(int i {0}; i < d.getSize(); i++) {
 		fightMonster(p, monsters[i]);
-		if(p.isDead() || p.hasWon()) {
+		if(p.isDead()) {
 			doorChoice = ' ';
 			return;
 		}
@@ -158,7 +156,7 @@ int main()
 	do {
 		runDungeon(p, level);
 
-	} while(!p.isDead() && !p.hasWon());
+	} while(!p.isDead());
 	
 
 

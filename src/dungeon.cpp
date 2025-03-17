@@ -8,7 +8,8 @@ Dungeon::~Dungeon() {
     delete [] m_monsters;
 }
 
-Dungeon Dungeon::generateDungoen(int level, int size) {
+Dungeon Dungeon::generateDungoen(int level) {
+    int size = {getSizeByLevel(level)};
     Monster *monsters = new Monster[size];
     for(int i {0}; i < size; i++) {
         monsters[i] = Monster::getRandomMonster();
@@ -28,4 +29,8 @@ std::ostream& operator<<(std::ostream& os, const Dungeon& obj) {
     }
     os << "]\n";
     return os;
+}
+
+int Dungeon::getSizeByLevel(int level) {
+    return ((level / 5) + 1) * 5;
 }

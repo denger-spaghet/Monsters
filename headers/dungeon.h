@@ -19,10 +19,12 @@ public:
     int getSize() {return m_size;}
     int getNumber() {return m_order;}
 
-    static Dungeon generateDungoen(int, int);
+    static Dungeon generateDungoen(int);
     friend std::ostream& operator<<(std::ostream& os, const Dungeon& obj);
 
     ~Dungeon();
+private:
+    static int getSizeByLevel(int);
 };
 
 #endif
