@@ -36,9 +36,14 @@ char twoChoices(char a, char b, std::string_view message) {
 	do {
 		std::cout << message << " ";
 		std::cin >> choice;
+
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 		boolA = (choice == a || choice == std::toupper(a));
 		boolB = (choice == b || choice == std::toupper(b));
 	} while(!boolA && !boolB);
+
+	
 
 	return (boolA ? a : b);
 }
