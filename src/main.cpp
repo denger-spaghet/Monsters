@@ -7,7 +7,6 @@
 #include "dungeon.h"
 
 /*TODO
-- implement xp mechanic for player leveling and rethink player levels (inc health instead of dmg)
 - cheats
 	- user input reads string
 	- add health
@@ -140,6 +139,7 @@ void runDungeon(Player& p, int& level) {
 
 int main()
 {
+	/*
 	std::cout << "Enter your name: ";
 	std::string playerName;
 	std::cin >> playerName;
@@ -168,7 +168,13 @@ int main()
 		std::cout << "Too bad you can’t take it with you!\n";
 	} else {
 		std::cout << "Congratulations, you won and took " << p.getGold() << " gold.\n";
-	}
+	}*/
+
+	Player p { "p" };
+	std::cout << p;
+
+	Monster m { Monster::getRandomMonster() };
+	std::cout << m;
 
 	return 0;
 }

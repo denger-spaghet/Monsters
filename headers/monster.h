@@ -23,6 +23,7 @@ public:
     Monster(Type);
     static Monster getRandomMonster();
     void scaleMonster(int);
+    friend std::ostream& operator<<(std::ostream& os, const Monster& obj);
 };
 
 #endif

@@ -17,3 +17,11 @@ void Monster::scaleMonster(int level) {
     m_gold += level;
     m_xp += level;
 }
+
+std::ostream& operator<<(std::ostream& os, const Monster& obj) {
+    Creature c { obj };
+    os << "Monster\n"
+        << c << "\n";
+    
+    return os;
+}

@@ -11,8 +11,11 @@ public:
     Player(std::string_view name);
 
     int getLevel() const {return m_level;}
+    int getLevelThreshold() const {return m_levelThreshold;}
     bool hasWon() const {return m_level >= 20;}
     void addXp(int);
+
+    friend std::ostream& operator<<(std::ostream& os, const Player& obj);
 private:
     void checkLevel();
     void levelUp();

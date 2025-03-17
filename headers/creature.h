@@ -2,6 +2,7 @@
 #define CREATURE_H
 
 #include <string>
+#include <iostream>
 
 class Creature {
     protected:
@@ -28,6 +29,8 @@ class Creature {
         void reduceHealth(int n) {m_health -= n;}
         bool isDead() {return (m_health <= 0);}
         void addGold(int n) {m_gold += n;}
+
+        friend std::ostream& operator<<(std::ostream& os, const Creature& obj);
     };
 
 #endif

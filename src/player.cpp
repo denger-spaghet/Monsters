@@ -24,3 +24,13 @@ void Player::levelUp() {
     m_xp -= m_levelThreshold;
     m_levelThreshold = m_level * 10; 
 }
+
+std::ostream& operator<<(std::ostream& os, const Player& obj) {
+    Creature c { obj };
+    os << "Player\n"
+        << "* level: " << obj.getLevel() << "\n"
+        << "* level threshold: " << obj.getLevelThreshold() << "\n"
+        << c << "\n";
+
+    return os;
+}
