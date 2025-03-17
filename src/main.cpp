@@ -7,8 +7,6 @@
 #include "dungeon.h"
 
 /*TODO
-- fix multiple char input in twoChoices()
-- get rid of the damn dragon (for now)
 - implement monster scaling according to dungeon level
 - implement dungeon size scaling
 - heal after dungeon
