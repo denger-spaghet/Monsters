@@ -15,4 +15,5 @@ void Monster::scaleMonster(int level) {
     m_health += level;
     m_damage += level;
     m_gold += level;
+    m_xp += level;
 }

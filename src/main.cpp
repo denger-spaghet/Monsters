@@ -66,7 +66,7 @@ void attackMonster(Player& p, Monster& m) {
 	std::cout << "You hit the " << m.getName() << " for " << p.getDamage() << " damage.\n";
 	if(m.isDead()) {
 		p.addGold(m.getGold());
-		p.levelUp();
+		p.addXp(m.getXp());
 
 		std::cout << "You killed the " << m.getName() << ".\n";
 		std::cout << "You found " << m.getGold() << " gold.\n";
@@ -162,8 +162,6 @@ int main()
 		p.addFullHealth();
 
 	} while(!p.isDead());
-	
-
 
 	if(p.isDead()) {
 		std::cout << "You died at level " << p.getLevel() << " and with " << p.getGold() << " gold.\n";
