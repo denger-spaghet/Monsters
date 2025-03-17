@@ -7,6 +7,7 @@
 #include "dungeon.h"
 
 /*TODO
+- fix multiple char input in twoChoices()
 - get rid of the damn dragon (for now)
 - implement monster scaling according to dungeon level
 - implement dungeon size scaling
@@ -27,7 +28,6 @@
 - server 0.0
 */
 
-//if true option a selected
 char twoChoices(char a, char b, std::string_view message) {
 	bool boolA { false };
 	bool boolB { false };
