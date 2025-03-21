@@ -140,9 +140,17 @@ void runDungeon(Player& p, int& level) {
 
 int main()
 {
+	Input i1 {};
+	std::cout << i1;
 
-	Input i {Input::yesNo, "yes/no"};
-	std::cout << i.getString() << " " << i.getType() << " " << i.getValue() << "\n";
+	Input i2 {Input::yesNo, "yes/no"};
+	std::cout << i2;
+
+	Input i3 {Input::runFight, "run/fight"};
+	std::cout << i3;
+
+	Input i4 {Input::leftRight, "left/right"};
+	std::cout << i4;
 	/*std::cout << "Enter your name: ";
 	std::string playerName;
 	std::cin >> playerName;
