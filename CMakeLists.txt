@@ -17,6 +17,7 @@ set(HEADER_FILES
     headers/player.h
     headers/myRandom.h
     headers/dungeon.h
+    headers/input.h
 )
 
 # Add source files
@@ -26,6 +27,7 @@ set(SOURCE_FILES
     src/player.cpp
     src/main.cpp
     src/dungeon.cpp
+    src/input.cpp
 )
 
 # Create the executable

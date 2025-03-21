@@ -5,6 +5,7 @@
 #include "player.h"
 #include "monster.h"
 #include "dungeon.h"
+#include "input.h"
 
 /*TODO
 - cheats
@@ -139,7 +140,10 @@ void runDungeon(Player& p, int& level) {
 
 int main()
 {
-	std::cout << "Enter your name: ";
+
+	Input i {Input::yesNo, "yes/no"};
+	std::cout << i.getString() << " " << i.getType() << " " << i.getValue() << "\n";
+	/*std::cout << "Enter your name: ";
 	std::string playerName;
 	std::cin >> playerName;
 
@@ -168,5 +172,5 @@ int main()
 	} else {
 		std::cout << "Congratulations, you won and took " << p.getGold() << " gold.\n";
 	}
-	return 0;
+	return 0;*/
 }
