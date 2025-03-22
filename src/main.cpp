@@ -8,10 +8,8 @@
 #include "input.h"
 
 /*TODO
-- implement new input
 ===============
 - REFACTOR
-	- global defaults
 ===============
 - save game
 - server 0.0
@@ -67,7 +65,7 @@ void fightMonster(Player& p, Monster& m) {
 	do{
 		std::cout << "You have " << p.getHealth() << " health.\n";
 		Input runFight { "Run or Fight", Input::Type::runFight };
-
+		smallDivider();
 		if(runFight.getValue() == Input::Value::run) {
 			int roll { Random::get(1, 100) };
 			if(roll > 50) {

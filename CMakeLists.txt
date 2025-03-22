@@ -18,6 +18,7 @@ set(HEADER_FILES
     headers/myRandom.h
     headers/dungeon.h
     headers/input.h
+    headers/json.h
 )
 
 # Add source files
