@@ -30,26 +30,6 @@
 
 */
 
-char twoChoices(char a, char b, std::string_view message) {
-	bool boolA { false };
-	bool boolB { false };
-	char choice {};
-
-	do {
-		std::cout << message << " ";
-		std::cin >> choice;
-
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-		boolA = (choice == a || choice == std::toupper(a));
-		boolB = (choice == b || choice == std::toupper(b));
-	} while(!boolA && !boolB);
-
-	
-
-	return (boolA ? a : b);
-}
-
 void bigDivider() {
 	std::cout << "========================\n";
 }
@@ -86,10 +66,9 @@ void fightMonster(Player& p, Monster& m) {
 	
 	do{
 		std::cout << "You have " << p.getHealth() << " health.\n";
+		Input runFight { "Run or Fight", Input::Type::runFight };
 
-		char runFight { twoChoices('r', 'f', "(R)un or (F)ight:") };
-
-		if(runFight == 'r') {
+		if(runFight.getValue() == Input::Value::run) {
 			int roll { Random::get(1, 100) };
 			if(roll > 50) {
 				std::cout << "You successfully fled.\n";
@@ -110,18 +89,19 @@ void fightMonster(Player& p, Monster& m) {
 }
 
 void runDungeon(Player& p, int& level) {
-	char doorChoice { ' ' };
-	if(level == 0) {
-		doorChoice = 'l';
+	if(level == 0){
+		++level;
 	} else {
 		std::cout << "There are two doors in front of you.\n";
 		std::cout << "The left one leads deeper into the dungeon.\n";
 		std::cout << "The right one continues on the same level.\n";
 
-		doorChoice = twoChoices('l', 'r', "Go (L)eft or (R)ight?");
+		Input doorChoice { "Go Left or Right?", Input::Type::leftRight };
+
+		smallDivider();
+		if(doorChoice.getValue() == Input::Value::left) ++level;
 	}
-	smallDivider();
-	if(doorChoice == 'l') ++level;
+	
 	Dungeon d { Dungeon::generateDungoen(level) };
 	std::cout << d;
 	Monster *monsters { d.getMonsters() };
@@ -129,15 +109,12 @@ void runDungeon(Player& p, int& level) {
 	for(int i {0}; i < d.getSize(); i++) {
 		fightMonster(p, monsters[i]);
 		if(p.isDead()) {
-			doorChoice = ' ';
 			return;
 		}
-		
 	}
 	std::cout << "You survived, for now.\n";
 	std::cout << "You have " << p.getHealth() << " health and are carrying " << p.getGold() << " gold.\n";
 	bigDivider();
-	doorChoice = ' ';
 }
 
 int main()
@@ -150,10 +127,11 @@ int main()
 	std::cout << "Welcome, " << p.getName() << ".\n";
 	std::cout << "There is a door into a dungeon in front of you.\n";
 
-	char startGame { twoChoices('y', 'n', "Do you want to enter? (y/n):") };
-	while(startGame == 'n') {
+
+	Input startGame { "Do you want to enter?", Input::Type::yesNo };
+	while(startGame.getValue() == Input::Value::no) {
 		std::cout << "You cannot turn back.\n";
-		startGame = twoChoices('y', 'n', "Do you want to enter? (y/n):");
+		startGame = Input { "Do you want to enter?", Input::Type::yesNo };
 	}
 
 	bigDivider();
