@@ -8,7 +8,15 @@ Input::Input():
         getInput();
     }
 
-Input::Input(Type type, std::string_view message):
+Input::Input(std::string_view message):
+    m_inputString { "" },
+    m_message { message },
+    m_type { Type::none_type },
+    m_value { Value::none_value } {
+        getInput();
+    }
+
+Input::Input(std::string_view message, Type type):
     m_inputString { "" },
     m_message { message },
     m_type { type },

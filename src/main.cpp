@@ -8,14 +8,16 @@
 #include "input.h"
 
 /*TODO
-- cheats
-	- user input reads string
-	- add health
-	- add xp
+- implement new input
 ===============
 - REFACTOR
 	- global defaults
 ===============
+- save game
+- server 0.0
+- cheats
+	- add health
+	- add xp
 - add items class
 	-potions??????
 	-weapons
@@ -25,7 +27,7 @@
 - spawn different mosnter types according to dungeon level
 - refine combat
 - save game
-- server 0.0
+
 */
 
 char twoChoices(char a, char b, std::string_view message) {
@@ -140,22 +142,9 @@ void runDungeon(Player& p, int& level) {
 
 int main()
 {
-	Input i1 {};
-	std::cout << i1;
+	Input playerName { "Enter your name" };
 
-	Input i2 {Input::yesNo, "yes/no"};
-	std::cout << i2;
-
-	Input i3 {Input::runFight, "run/fight"};
-	std::cout << i3;
-
-	Input i4 {Input::leftRight, "left/right"};
-	std::cout << i4;
-	/*std::cout << "Enter your name: ";
-	std::string playerName;
-	std::cin >> playerName;
-
-	Player p { playerName };
+	Player p { playerName.getString() };
 	int level { 0 };
 
 	std::cout << "Welcome, " << p.getName() << ".\n";
@@ -180,5 +169,5 @@ int main()
 	} else {
 		std::cout << "Congratulations, you won and took " << p.getGold() << " gold.\n";
 	}
-	return 0;*/
+	return 0;
 }

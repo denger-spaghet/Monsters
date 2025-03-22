@@ -46,7 +46,8 @@ private:
 public:
         
     Input();
-    Input(Type, std::string_view);
+    Input(std::string_view);
+    Input(std::string_view, Type);
 
     const std::string& getString() const {return m_inputString;}
     const std::string& getMessage() const {return m_message;}
