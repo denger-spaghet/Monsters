@@ -35,4 +35,8 @@ set(SOURCE_FILES
 add_executable(Monsters ${SOURCE_FILES})
 
 # Include directories for headers
-target_include_directories(Monsters PRIVATE headers)
+find_library(CPP-JSON_LIB NAMES libCPP-JSON.so PATHS /usr/local/lib REQUIRED)
+target_include_directories(Monsters PRIVATE ${CMAKE_SOURCE_DIR}/headers)
+target_include_directories(Monsters PRIVATE /usr/local/include)
+target_link_libraries(Monsters PRIVATE ${CPP-JSON_LIB})
+set_target_properties(Monsters PROPERTIES LINK_DIRECTORIES /usr/local/lib)
