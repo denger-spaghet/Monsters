@@ -1,11 +1,15 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <fstream>
+#include <filesystem> 
 
 #include "player.h"
 #include "monster.h"
 #include "dungeon.h"
 #include "input.h"
+#include "json.h"
+
 
 /*TODO
 ===============
@@ -86,6 +90,39 @@ void fightMonster(Player& p, Monster& m) {
 	bigDivider();
 }
 
+void saveJsonFile(JsonObject json, std::string saveDir) {
+	std::string saveFile { saveDir + "/saveFile.txt" };
+	
+	if (!std::filesystem::is_directory(saveDir) || !std::filesystem::exists(saveDir)) {
+		std::filesystem::create_directory(saveDir); // create src folder
+	}
+	std::ofstream outfile (saveFile.c_str());
+
+	outfile << json.toString() << std::endl;
+
+	outfile.close();
+}
+
+void save(Player& p, int level, std::string saveDir) {
+	JsonObject json;
+	JsonObject player;
+
+
+	player.add("Name", p.getName());
+	player.add("Health", std::to_string(p.getHealth()));
+	player.add("MaxHealth", std::to_string(p.getMaxHealth()));
+	player.add("Damage", std::to_string(p.getDamage()));
+	player.add("Gold", std::to_string(p.getGold()));
+	player.add("Xp", std::to_string(p.getXp()));
+	player.add("Level", std::to_string(p.getLevel()));
+
+	json.add("DungeonLevel", std::to_string(level));
+	json.add("Player", player);
+
+	saveJsonFile(json, saveDir);
+
+}
+
 void runDungeon(Player& p, int& level) {
 	if(level == 0){
 		++level;
@@ -117,6 +154,7 @@ void runDungeon(Player& p, int& level) {
 
 int main()
 {
+	std::string saveDir { "/home/denger/save" };
 	Input playerName { "Enter your name" };
 
 	Player p { playerName.getString() };
@@ -136,6 +174,7 @@ int main()
 	do {
 		runDungeon(p, level);
 		p.addFullHealth();
+		save(p, level, saveDir);
 
 	} while(!p.isDead());
 

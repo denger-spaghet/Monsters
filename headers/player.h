@@ -9,6 +9,7 @@ private:
     int m_levelThreshold;
 public:
     Player(std::string_view name);
+    Player(std::string_view name, int);
 
     int getLevel() const {return m_level;}
     int getLevelThreshold() const {return m_levelThreshold;}

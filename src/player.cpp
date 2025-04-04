@@ -5,6 +5,11 @@ Player::Player(std::string_view name):
     m_level { 1 },
     m_levelThreshold { m_level * 10 } {}
 
+Player::Player(std::string_view name, int level):
+    Creature { name, '@', 100, 1, 0, 0 },
+    m_level { level },
+    m_levelThreshold { m_level * 10 } {}
+
 void Player::addXp(int xp) {
     m_xp += xp;
     checkLevel();
